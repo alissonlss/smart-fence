@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Smart Fence</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css">
+    <link rel="shortcut icon" href="assets/img/logo.svg" type="image/x-icon">
+  </head>  
+  <body>
+    <main>
+        <h1>Smart Fence</h1>
+
+        <section id="presentation">
+            <div>
+                <h2>Bem-Vindo ao Smart Fence - Sua Solução para o Bem-Estar do Seu Pet!</h2>
+                <p> 
+                    Damos as boas-vindas a todos os amantes de animais ao Smart Fence, o aplicativo que torna a segurança e o cuidado dos seus pets mais inteligentes e personalizados do que nunca. Com nossa tecnologia inovadora, você pode garantir que seus animais de estimação tenham liberdade com responsabilidade, enquanto mantém um olho atento sobre eles.
+                </p>
+            </div>
+            <img src="assets/img/ilustracao.svg" alt="Ilustração de pets felizes">
+        </section>
+        
+        <section id="demos" class="invisible">
+            <p>
+                Deseja ativar sua webcam para aproveitar todos os recursos incríveis? É fácil! Basta clicar no botão abaixo para iniciar o acesso à webcam. Lembre-se de conceder permissão para acessar sua câmera quando solicitado pelo navegador. 
+            </p>
+            
+            <div id="liveView" class="camView">
+                <button id="webcamButton">Acessar Webcam</button>
+                <video id="webcam" autoplay muted width="640" height="480"></video>
+                <span>
+                    <button id="closeWebcam" class="removed">Fechar Webcam</button>
+                    <button id="lineButton" class="removed">Ocultar Linha</button>
+                </span>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2023 - Smart Fence</p>
+    </footer>
+
+    <!-- Import TensorFlow.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
+    <!-- Load the coco-ssd model to use to recognize things in images -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    
+    <script src="src/script.js" defer></script>
+  </body>
+</html>
