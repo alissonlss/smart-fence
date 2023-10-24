@@ -155,8 +155,12 @@ closeWebcam.addEventListener('click', () => {
     }
 
     // Ocultar o vídeo da visualização ao vivo
-    liveView.removeChild(confidence);
-    liveView.removeChild(frame);
+    if (confidence){
+        liveView.removeChild(confidence);
+    }
+    if (frame){
+       liveView.removeChild(frame); 
+    }
     liveView.removeChild(line);
     
     // Ocultar o botão "Fechar Webcam" e o de "Ocultar Linha"
@@ -179,6 +183,7 @@ closeWebcam.addEventListener('click', () => {
     })
 
 });
+
 
 lineButton.addEventListener("click", () => {
     const textButton = {"Ocultar Linha": "Mostrar Linha", "Mostrar Linha": "Ocultar Linha"};
