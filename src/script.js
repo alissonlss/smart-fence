@@ -72,14 +72,14 @@ function predictWebcam() {
     const class_mapping = ['person', 'dog', 'cat'];
 
     model.detect(video).then(function (predictions) {
-        
+
         for (let i = 0; i < children.length; i++) {
             liveView.removeChild(children[i]);
         }
         children.splice(0);
 
-        const videoWidth = video.videoWidth;
-        const videoHeight = video.videoHeight;
+        const videoWidth = video.getBoundingClientRect().width;
+        const videoHeight = video.getBoundingClientRect().height;
 
         const middleY = videoHeight / 2;
 
@@ -100,25 +100,33 @@ function predictWebcam() {
         }
 
         for (let n = 0; n < predictions.length; n++) {
+            let fator = 1;
+
             if (predictions[n].score > 0.66 && class_mapping.includes(predictions[n].class)) {
                 const p = document.createElement('p');
                 p.id = "confidence";
 
+                if (videoWidth == "320" && videoHeight == "240"){
+                    fator = 2;
+                } else if(videoWidth == "272" && videoHeight == "192"){
+                    fator = 2.5;
+                }
+
                 p.innerText = predictions[n].class + ' - com ' +
                     Math.round(parseFloat(predictions[n].score) * 100) +
                     '% de confiança.';
-                p.style = 'margin-left: ' + predictions[n].bbox[0] + 'px; margin-top: ' +
-                    (predictions[n].bbox[1] - 10) + 'px; width: ' +
-                    (predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
+                p.style = 'margin-left: ' + predictions[n].bbox[0]/fator + 'px; margin-top: ' +
+                    (predictions[n].bbox[1]/fator - 10) + 'px; width: ' +
+                    (predictions[n].bbox[2]/fator - 10) + 'px; top: 0; left: 0;';
 
                 const highlighter = document.createElement('div');
                 highlighter.id = "frame";
 
                 highlighter.setAttribute('class', 'highlighter');
-                highlighter.style = 'left: ' + predictions[n].bbox[0] + 'px; top: ' +
-                    predictions[n].bbox[1] + 'px; width: ' +
-                    predictions[n].bbox[2] + 'px; height: ' +
-                    predictions[n].bbox[3] + 'px;';
+                highlighter.style = 'left: ' + predictions[n].bbox[0]/fator + 'px; top: ' +
+                    predictions[n].bbox[1]/fator + 'px; width: ' +
+                    predictions[n].bbox[2]/fator + 'px; height: ' +
+                    predictions[n].bbox[3]/fator + 'px;';
 
                 liveView.appendChild(highlighter);
                 liveView.appendChild(p);
