@@ -69,7 +69,9 @@ var lineExiste = false;
 
 // Função para classificar frames da webcam
 function predictWebcam() {
-    const class_mapping = ['person', 'dog', 'cat'];
+    const classMapping = ['person', 'dog', 'cat'];
+    const bgColor = {'dog' : '#ff0381', 'cat' : '#6b026b'};
+    const pets = ['dog', 'cat'];
 
     model.detect(video).then(function (predictions) {
 
@@ -102,7 +104,7 @@ function predictWebcam() {
         for (let n = 0; n < predictions.length; n++) {
             let fator = 1;
 
-            if (predictions[n].score > 0.66 && class_mapping.includes(predictions[n].class)) {
+            if (predictions[n].score > 0.66 && classMapping.includes(predictions[n].class)) {
                 const p = document.createElement('p');
                 p.id = "confidence";
 
@@ -118,6 +120,10 @@ function predictWebcam() {
                 p.style = 'margin-left: ' + predictions[n].bbox[0]/fator + 'px; margin-top: ' +
                     (predictions[n].bbox[1]/fator - 10) + 'px; width: ' +
                     (predictions[n].bbox[2]/fator - 10) + 'px; top: 0; left: 0;';
+
+                if (pets.includes(predictions[n].class)){
+                    p.style.backgroundColor = bgColor[predictions[n].class];
+                }
 
                 const highlighter = document.createElement('div');
                 highlighter.id = "frame";
