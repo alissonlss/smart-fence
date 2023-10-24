@@ -66,6 +66,17 @@ var children = [];
 // variável para armazenar a existencia da linha
 var lineExiste = false;
 
+// variável para armazenar a espera entre as notificações
+var seconds = 0;
+
+function timeWait() {
+  if (seconds > 0) {
+    seconds--;
+    // Chama a função iniciarContagem novamente após 1 segundo
+    setTimeout(timeWait, 1000);
+  } 
+}
+
 
 // Função para classificar frames da webcam
 function predictWebcam() {
@@ -133,6 +144,15 @@ function predictWebcam() {
                     predictions[n].bbox[1]/fator + 'px; width: ' +
                     predictions[n].bbox[2]/fator + 'px; height: ' +
                     predictions[n].bbox[3]/fator + 'px;';
+
+                // detecção de fuga
+                const heightClass = predictions[n].bbox[1]/fator + predictions[n].bbox[3]/fator;
+                
+                if ((heightClass < videoHeight/2) && pets.includes(predictions[n].class) && seconds === 0){
+                    window.alert("Seu pet está fugindo!!!");
+                    seconds = 30;
+                    timeWait();
+                }
 
                 liveView.appendChild(highlighter);
                 liveView.appendChild(p);
