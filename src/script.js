@@ -149,9 +149,14 @@ function predictWebcam() {
                 const heightClass = predictions[n].bbox[1]/fator + predictions[n].bbox[3]/fator;
                 
                 if ((heightClass < videoHeight/2) && pets.includes(predictions[n].class) && seconds === 0){
+                    video.classList.add("escaping");
                     window.alert("Seu pet está fugindo!!!");
                     seconds = 30;
                     timeWait();
+                }
+
+                if(video.classList.contains("escaping") && seconds === 0){
+                    video.classList.remove("escaping");
                 }
 
                 liveView.appendChild(highlighter);
