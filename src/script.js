@@ -1,5 +1,4 @@
 // Selecionando elementos HTML
-const escaping = document.getElementById('not-escaping');
 const video = document.getElementById('webcam');
 const liveView = document.getElementById('liveView');
 const demosSection = document.getElementById('demos');
@@ -151,7 +150,6 @@ function predictWebcam() {
                 
                 if ((heightClass < videoHeight/2) && pets.includes(predictions[n].class) && seconds === 0){
                     video.classList.add("escaping");
-                    escaping.id = 'escaping'
                     window.alert("Seu pet está fugindo!!!");
                     seconds = 30;
                     timeWait();
@@ -159,7 +157,6 @@ function predictWebcam() {
 
                 if(video.classList.contains("escaping") && seconds === 0){
                     video.classList.remove("escaping");
-                    escaping.id = 'not-escaping'
                 }
 
                 liveView.appendChild(highlighter);
